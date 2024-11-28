@@ -6,7 +6,7 @@ pipeline {
         // the value of a temporary file.  For example:
         //   /home/user/.jenkins/workspace/cred_test@tmp/secretFiles/546a5cf3-9b56-4165-a0fd-19e2afe6b31f/kubeconfig.txt
         // MY_KUBECONFIG = credentials('my-kubeconfig')
-        registry = "wahid007/demo-jenkins"
+        registry = "imend/demo-jenkins"
         registryCredential = 'dockerhub_id'
         dockerImage = ''        
     }
