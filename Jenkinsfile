@@ -15,7 +15,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout code from GitHub using the provided credentials
                 git credentialsId: "${GIT_CREDENTIALS}", url: 'https://github.com/imendrid/Jenkins-Demo.git'
             }
         }
@@ -50,6 +49,12 @@ pipeline {
             steps {
                 sh "kubectl get pods"
                 sh "kubectl get svc"
+            }
+        }
+
+        stage('Clean up') {
+            steps {
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
