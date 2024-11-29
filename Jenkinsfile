@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        registry = "imend/demo-jenkins"
+        registry = "imendrid/demo-jenkins"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
-        GIT_CREDENTIALS = 'github-token'  // Name of your credentials
+        GIT_CREDENTIALS = 'jenkins access token'  // Name of your credentials
     }
 
     triggers {
@@ -16,7 +16,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from GitHub using the provided credentials
-                git credentialsId: "${GIT_CREDENTIALS}", url: 'https://github.com/imend/Jenkins-Demo.git'
+                git credentialsId: "${GIT_CREDENTIALS}", url: 'https://github.com/imendrid/Jenkins-Demo.git'
             }
         }
 
