@@ -3,7 +3,8 @@ def mvnHome = tool 'maven-3.5.2'
 def dockerImage
 def dockerImageTag = "devopsexample:${env.BUILD_NUMBER}"
 stage('Clone Repo') {
-git “branch: 'main', url: 'https://github.com/wahid007/Jenkins-Demo.git'
+git branch: 'main', url: 'https://github.com/imendrid/Jenkins-Demo.git'
+
 }
 stage('Build Project') {
 sh "mvn clean package"
