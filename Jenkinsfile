@@ -5,7 +5,7 @@ pipeline {
         registry = "imendrid/demo-jenkins"
         registryCredential = 'dockerhub_id'
         dockerImage = ''
-        GIT_CREDENTIALS = 'jenkins access token'  // Name of your credentials
+        GIT_CREDENTIALS = 'jenkins access token'
     }
 
     triggers {
@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: GIT_CREDENTIALS, url: 'https://github.com/imendrid/Jenkins-Demo.git'
+                git branch: 'main', credentialsId: GIT_CREDENTIALS, url: 'https://github.com/imendrid/Jenkins-Demo.git'
             }
         }
 
