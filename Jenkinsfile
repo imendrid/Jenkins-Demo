@@ -15,13 +15,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git credentialsId: "${GIT_CREDENTIALS}", url: 'https://github.com/imendrid/Jenkins-Demo.git'
+                git credentialsId: GIT_CREDENTIALS, url: 'https://github.com/imendrid/Jenkins-Demo.git'
             }
         }
 
         stage('Build App') {
             steps {
-                sh "mvn clean package"
+                script {
+                    docker.image('maven:3.8.7').inside {
+                        sh 'mvn clean package'
+                    }
+                }
             }
         }
 
@@ -35,7 +39,11 @@ pipeline {
 
         stage('Deploy Docker container') {
             steps {
-                sh "docker run --name demo-jenkins -d -p 2222:2222 $registry:$BUILD_NUMBER"
+                sh """
+                docker stop demo-jenkins || true
+                docker rm demo-jenkins || true
+                docker run --name demo-jenkins -d -p 2222:2222 $registry:$BUILD_NUMBER
+                """
             }
         }
 
@@ -54,7 +62,11 @@ pipeline {
 
         stage('Clean up') {
             steps {
-                sh "docker rmi $registry:$BUILD_NUMBER"
+                sh """
+                docker stop demo-jenkins || true
+                docker rm demo-jenkins || true
+                docker rmi $registry:$BUILD_NUMBER || true
+                """
             }
         }
     }
