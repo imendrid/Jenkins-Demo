@@ -17,6 +17,7 @@ sh "docker build -t ${dockerImageTag} ."
 }
 stage('Deploy Docker Image'){
 echo "Docker Image Tag Name: ${dockerImageTag}"
-sh "docker run --name devopsexample -d -p 2222:2222 ${dockerImageTag}
+sh "docker run --name ${CONTAINER_NAME} -d -p 2222:2222 ${dockerImageTag}"
+
 }
 }
